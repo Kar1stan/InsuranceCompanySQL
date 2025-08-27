@@ -1,13 +1,14 @@
 package com.solvd.project.service;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.DriverDAOI;
 import com.solvd.project.model.Drivers;
+
 import java.util.List;
 
 public class DriverService {
-    private final GenericDAO<Drivers, Integer> dao;
+    private final DriverDAOI dao;
 
-    public DriverService(GenericDAO<Drivers, Integer> dao) {
+    public DriverService(DriverDAOI dao) {
         this.dao = dao;
     }
 

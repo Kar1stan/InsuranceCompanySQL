@@ -1,13 +1,14 @@
 package com.solvd.project.service;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.PolicyHolderDAOI;
 import com.solvd.project.model.PolicyHolders;
+
 import java.util.List;
 
 public class PolicyHolderService {
-    private final GenericDAO<PolicyHolders, Integer> dao;
+    private final PolicyHolderDAOI dao;
 
-    public PolicyHolderService(GenericDAO<PolicyHolders, Integer> dao) {
+    public PolicyHolderService(PolicyHolderDAOI dao) {
         this.dao = dao;
     }
 

@@ -1,12 +1,13 @@
 package com.solvd.project.dao;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.PaymentsDAOI;
 import com.solvd.project.model.Payments;
-import java.sql.*;
-import java.sql.Date;
-import java.util.*;
 
-public class PaymentDAO implements GenericDAO<Payments, Integer> {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PaymentDAO implements PaymentsDAOI {
     private final Connection conn;
 
     public PaymentDAO(Connection conn) {
@@ -14,7 +15,7 @@ public class PaymentDAO implements GenericDAO<Payments, Integer> {
     }
 
     @Override
-    public Payments getById(Integer id) {
+    public Payments getById(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Payments WHERE PaymentId = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -52,8 +53,8 @@ public class PaymentDAO implements GenericDAO<Payments, Integer> {
     @Override
     public void insert(Payments payment) {
         try (PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO Payments (PolicyId, Amount, Date) VALUES (?, ?, ?)")) {
-            stmt.setInt(1, payment.getPaymentId());
+                "INSERT INTO Payments (Method, Amount, Date) VALUES (?, ?, ?)")) {
+            stmt.setString(1, payment.getMethod());
             stmt.setDouble(2, payment.getAmount());
             stmt.setDate(3, Date.valueOf(payment.getPaymentDate()));
             stmt.executeUpdate();
@@ -65,8 +66,8 @@ public class PaymentDAO implements GenericDAO<Payments, Integer> {
     @Override
     public void update(Payments payment) {
         try (PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE Payments SET PolicyId = ?, Amount = ?, Date = ? WHERE PaymentId = ?")) {
-            stmt.setInt(1, payment.getPaymentId());
+                "UPDATE Payments SET Method = ?, Amount = ?, Date = ? WHERE PaymentId = ?")) {
+            stmt.setString(1, payment.getMethod());
             stmt.setDouble(2, payment.getAmount());
             stmt.setDate(3, Date.valueOf(payment.getPaymentDate()));
             stmt.setInt(4, payment.getPaymentId());
@@ -77,7 +78,7 @@ public class PaymentDAO implements GenericDAO<Payments, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Payments WHERE PaymentId = ?")) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

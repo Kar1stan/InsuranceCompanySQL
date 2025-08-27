@@ -1,12 +1,13 @@
 package com.solvd.project.dao;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.WeatherConditionsDAOI;
 import com.solvd.project.model.WeatherConditions;
-import java.sql.*;
-import java.sql.Date;
-import java.util.*;
 
-public class WeatherConditionsDAO implements GenericDAO<WeatherConditions, Integer> {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class WeatherConditionsDAO implements WeatherConditionsDAOI {
     private final Connection conn;
 
     public WeatherConditionsDAO(Connection conn) {
@@ -14,7 +15,7 @@ public class WeatherConditionsDAO implements GenericDAO<WeatherConditions, Integ
     }
 
     @Override
-    public WeatherConditions getById(Integer id) {
+    public WeatherConditions getById(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM WeatherConditions WHERE WeatherId = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -23,7 +24,7 @@ public class WeatherConditionsDAO implements GenericDAO<WeatherConditions, Integ
                         rs.getInt("WeatherId"),
                         rs.getString("Condition"),
                         rs.getDouble("Temperature"),
-                        rs.getDate("Reported Date").toLocalDate());
+                        rs.getDate("ReportedDate").toLocalDate());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,7 +42,7 @@ public class WeatherConditionsDAO implements GenericDAO<WeatherConditions, Integ
                         rs.getInt("WeatherId"),
                         rs.getString("Condition"),
                         rs.getDouble("Temperature"),
-                        rs.getDate("Reported Date").toLocalDate()));
+                        rs.getDate("ReportedDate").toLocalDate()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,10 +53,10 @@ public class WeatherConditionsDAO implements GenericDAO<WeatherConditions, Integ
     @Override
     public void insert(WeatherConditions wc) {
         try (PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO WeatherConditions (Condition, Temperature,Date) VALUES (?, ?, ?, ?)")) {
+                "INSERT INTO WeatherConditions (Condition, Temperature, ReportedDate) VALUES (?, ?, ?)")) {
             stmt.setString(1, wc.getCondition());
             stmt.setDouble(2, wc.getTemperature());
-            stmt.setDate(4, Date.valueOf(wc.getDateReported()));
+            stmt.setDate(3, Date.valueOf(wc.getDateReported()));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,11 +66,11 @@ public class WeatherConditionsDAO implements GenericDAO<WeatherConditions, Integ
     @Override
     public void update(WeatherConditions wc) {
         try (PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE WeatherConditions SET Condition = ?, Temperature = ?, Visibility = ?, Date = ? WHERE WeatherId = ?")) {
+                "UPDATE WeatherConditions SET Condition = ?, Temperature = ?, ReportedDate = ? WHERE WeatherId = ?")) {
             stmt.setString(1, wc.getCondition());
             stmt.setDouble(2, wc.getTemperature());
-            stmt.setDate(4, Date.valueOf(wc.getDateReported()));
-            stmt.setInt(5, wc.getWeatherId());
+            stmt.setDate(3, Date.valueOf(wc.getDateReported()));
+            stmt.setInt(4, wc.getWeatherId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,7 +78,7 @@ public class WeatherConditionsDAO implements GenericDAO<WeatherConditions, Integ
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM WeatherConditions WHERE WeatherId = ?")) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

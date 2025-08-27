@@ -1,13 +1,14 @@
 package com.solvd.project.service;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.PaymentsDAOI;
 import com.solvd.project.model.Payments;
+
 import java.util.List;
 
 public class PaymentsService {
-    private final GenericDAO<Payments, Integer> dao;
+    private final PaymentsDAOI dao;
 
-    public PaymentsService(GenericDAO<Payments, Integer> dao) {
+    public PaymentsService(PaymentsDAOI dao) {
         this.dao = dao;
     }
 

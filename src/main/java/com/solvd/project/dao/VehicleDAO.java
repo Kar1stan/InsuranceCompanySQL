@@ -1,11 +1,13 @@
 package com.solvd.project.dao;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.VehicleDAOI;
 import com.solvd.project.model.Vehicles;
-import java.sql.*;
-import java.util.*;
 
-public class VehicleDAO implements GenericDAO<Vehicles, Integer> {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class VehicleDAO implements VehicleDAOI {
     private final Connection conn;
 
     public VehicleDAO(Connection conn) {
@@ -13,7 +15,7 @@ public class VehicleDAO implements GenericDAO<Vehicles, Integer> {
     }
 
     @Override
-    public Vehicles getById(Integer id) {
+    public Vehicles getById(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Vehicles WHERE VehicleId = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -76,7 +78,7 @@ public class VehicleDAO implements GenericDAO<Vehicles, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Vehicles WHERE VehicleId = ?")) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

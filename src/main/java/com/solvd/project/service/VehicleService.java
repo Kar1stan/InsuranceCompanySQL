@@ -1,14 +1,14 @@
 package com.solvd.project.service;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.VehicleDAOI;
 import com.solvd.project.model.Vehicles;
 
 import java.util.List;
 
 public class VehicleService {
-    private final GenericDAO<Vehicles, Integer> dao;
+    private final VehicleDAOI dao;
 
-    public VehicleService(GenericDAO<Vehicles, Integer> dao) {
+    public VehicleService(VehicleDAOI dao) {
         this.dao = dao;
     }
 

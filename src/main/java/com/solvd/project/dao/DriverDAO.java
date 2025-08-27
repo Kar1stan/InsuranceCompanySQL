@@ -1,11 +1,13 @@
 package com.solvd.project.dao;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.DriverDAOI;
 import com.solvd.project.model.Drivers;
-import java.sql.*;
-import java.util.*;
 
-public class DriverDAO implements GenericDAO<Drivers, Integer> {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DriverDAO implements DriverDAOI {
     private final Connection conn;
 
     public DriverDAO(Connection conn) {
@@ -13,7 +15,7 @@ public class DriverDAO implements GenericDAO<Drivers, Integer> {
     }
 
     @Override
-    public Drivers getById(Integer id) {
+    public Drivers getById(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Drivers WHERE DriverId = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -72,7 +74,7 @@ public class DriverDAO implements GenericDAO<Drivers, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Drivers WHERE DriverId = ?")) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

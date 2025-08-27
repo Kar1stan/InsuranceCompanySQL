@@ -1,12 +1,13 @@
 package com.solvd.project.dao;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.ClaimDAOI;
 import com.solvd.project.model.Claims;
-import java.sql.*;
-import java.sql.Date;
-import java.util.*;
 
-public class ClaimDAO implements GenericDAO<Claims, Integer> {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClaimDAO implements ClaimDAOI {
     private final Connection conn;
 
     public ClaimDAO(Connection conn) {
@@ -14,7 +15,7 @@ public class ClaimDAO implements GenericDAO<Claims, Integer> {
     }
 
     @Override
-    public Claims getById(Integer id) {
+    public Claims getById(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Claims WHERE ClaimId = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -77,7 +78,7 @@ public class ClaimDAO implements GenericDAO<Claims, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Claims WHERE ClaimId = ?")) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

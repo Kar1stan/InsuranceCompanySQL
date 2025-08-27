@@ -1,12 +1,13 @@
 package com.solvd.project.dao;
 
-import com.solvd.project.dao.interfaces.GenericDAO;
+import com.solvd.project.dao.interfaces.PolicyDAOI;
 import com.solvd.project.model.Policy;
-import java.sql.*;
-import java.sql.Date;
-import java.util.*;
 
-public class PolicyDAO implements GenericDAO<Policy, Integer> {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PolicyDAO implements PolicyDAOI {
     private final Connection conn;
 
     public PolicyDAO(Connection conn) {
@@ -14,7 +15,7 @@ public class PolicyDAO implements GenericDAO<Policy, Integer> {
     }
 
     @Override
-    public Policy getById(Integer id) {
+    public Policy getById(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Policies WHERE PolicyId = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -85,7 +86,7 @@ public class PolicyDAO implements GenericDAO<Policy, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(int id) {
         try (PreparedStatement stmt = conn.prepareStatement("DELETE FROM Policies WHERE PolicyId = ?")) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
