@@ -40,6 +40,8 @@ import com.solvd.project.dao.ClaimDAO;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;
@@ -75,7 +77,8 @@ public class Main {
                         XMLImportService xmlService = new XMLImportService();
 
                         // 4. Load and process XML data
-                        InputStream xmlStream = new FileInputStream("insurance_data.xml");
+                        Path path = Paths.get("resources", "insurance_data.xml");
+                        InputStream xmlStream = new FileInputStream(path.toFile());
 
                         // 5. Use services
                         System.out.println("📋 All Policy Holders:");
