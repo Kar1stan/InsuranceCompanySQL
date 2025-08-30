@@ -6,6 +6,7 @@ import com.solvd.project.model.Witness;
 import com.solvd.project.model.WitnessJAXB;
 import com.solvd.project.service.DriverService;
 import com.solvd.project.service.InsuranceData;
+import com.solvd.project.service.JsonInsuranceService;
 import com.solvd.project.service.PaymentsService;
 import com.solvd.project.service.PolicyHolderService;
 import com.solvd.project.service.PolicyService;
@@ -23,6 +24,8 @@ import com.solvd.project.model.Policy;
 import com.solvd.project.model.PolicyHolders;
 import com.solvd.project.model.Claims;
 import com.solvd.project.model.Drivers;
+import com.solvd.project.model.FraudCheck;
+import com.solvd.project.model.InjuriRecord;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -130,6 +133,20 @@ public class Main {
                                 System.out.println("   Name: " + adjuster.getName());
                                 System.out.println("   Contact: " + adjuster.getContact());
                                 System.out.println("   Case: " + adjuster.getAssignedCase());
+                        }
+
+                        JsonInsuranceService service = new JsonInsuranceService(
+                                        "src/resources/insurance_mock_data.json");
+
+                        logger.info("🔍 Fraud Checks:");
+                        for (FraudCheck fc : service.getFraudChecks()) {
+                                System.out.println(
+                                                " - Reason: " + fc.getFlagReason() + " | Score: " + fc.getRiskScore());
+                        }
+
+                        logger.info("\n🩺 Injury Records:");
+                        for (InjuriRecord ir : service.getInjuriRecords()) {
+                                System.out.println(" - Type: " + ir.getType() + " | Severity: " + ir.getSeverity());
                         }
 
                 } catch (Exception e) {

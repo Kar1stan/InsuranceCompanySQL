@@ -1,0 +1,22 @@
+{
+  "fraudChecks": [
+    {
+      "idFraudChecks": 1,
+      "flaggedBy": "System",
+      "flagReason": "Unusual claim pattern",
+      "riskScore": 0.87,
+      "dateFlagged": "2025-08-01",
+      "dateResolved": "2025-08-05"
+    }
+  ],
+  "injuriRecords": [
+    {
+      "idInjuriRecords": 101,
+      "type": "Fracture",
+      "severity": "High",
+      "hospitalInfo": "Odessa Trauma Center",
+      "treatment": "Surgery",
+      "idAccidents": 2025
+    }
+  ]
+}
