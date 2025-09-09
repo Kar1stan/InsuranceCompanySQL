@@ -80,7 +80,7 @@ public class Main {
                         XMLImportService xmlService = new XMLImportService();
 
                         // 4. Load and process XML data
-                        Path path = Paths.get("resources", "insurance_data.xml");
+                        Path path = Paths.get("src/main/java/com/solvd/project/resources", "insurance_data.xml");
                         InputStream xmlStream = new FileInputStream(path.toFile());
 
                         // 5. Use services
@@ -103,7 +103,7 @@ public class Main {
 
                         }
 
-                        xmlStream = new FileInputStream("insurance_data.xml"); // Reset stream
+                        xmlStream = new FileInputStream("src/main/java/com/solvd/project/resources/insurance_data.xml");
                         System.out.println("\n📥 Importing Adjusters from XML...");
                         List<Adjuster> adjusters = xmlService.loadAdjusters(xmlStream);
                         for (Adjuster a : adjusters) {
@@ -112,7 +112,7 @@ public class Main {
                         }
 
                         // Load and parse XML with the use of JAXB
-                        File xmlFile = new File("src/resources/insurance_data.xml");
+                        File xmlFile = new File("src/main/java/com/solvd/project/resources/insurance_data.xml");
                         JAXBContext context = JAXBContext.newInstance(InsuranceData.class);
                         Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -135,6 +135,7 @@ public class Main {
                                 System.out.println("   Case: " + adjuster.getAssignedCase());
                         }
 
+                        // Parse JSON file through mapping
                         JsonInsuranceService service = new JsonInsuranceService(
                                         "src/resources/insurance_mock_data.json");
 
