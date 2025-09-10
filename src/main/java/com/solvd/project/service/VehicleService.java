@@ -1,6 +1,7 @@
 package com.solvd.project.service;
 
 import com.solvd.project.dao.interfaces.VehicleDAOI;
+import com.solvd.project.dao.VehicleDAO;
 import com.solvd.project.model.Vehicles;
 
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
 public class VehicleService {
     private final VehicleDAOI dao;
 
-    public VehicleService(VehicleDAOI dao) {
-        this.dao = dao;
+    public VehicleService() {
+        this.dao = new VehicleDAO(null);
     }
 
     public Vehicles get(int id) {

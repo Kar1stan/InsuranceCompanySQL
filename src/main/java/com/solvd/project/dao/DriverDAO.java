@@ -2,13 +2,22 @@ package com.solvd.project.dao;
 
 import com.solvd.project.dao.interfaces.DriverDAOI;
 import com.solvd.project.model.Drivers;
+import com.solvd.project.utils.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DriverDAO implements DriverDAOI {
-    private final Connection conn;
+    Connection conn;
+
+    {
+        try {
+            conn = ConnectionPool.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get database connection", e);
+        }
+    }
 
     public DriverDAO(Connection conn) {
         this.conn = conn;
@@ -27,6 +36,14 @@ public class DriverDAO implements DriverDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -44,6 +61,14 @@ public class DriverDAO implements DriverDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return drivers;
     }
@@ -57,6 +82,14 @@ public class DriverDAO implements DriverDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -70,6 +103,14 @@ public class DriverDAO implements DriverDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -80,6 +121,14 @@ public class DriverDAO implements DriverDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

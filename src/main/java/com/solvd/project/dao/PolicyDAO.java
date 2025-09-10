@@ -2,13 +2,22 @@ package com.solvd.project.dao;
 
 import com.solvd.project.dao.interfaces.PolicyDAOI;
 import com.solvd.project.model.Policy;
+import com.solvd.project.utils.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PolicyDAO implements PolicyDAOI {
-    private final Connection conn;
+    Connection conn;
+
+    {
+        try {
+            conn = ConnectionPool.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get database connection", e);
+        }
+    }
 
     public PolicyDAO(Connection conn) {
         this.conn = conn;
@@ -30,6 +39,14 @@ public class PolicyDAO implements PolicyDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -50,6 +67,14 @@ public class PolicyDAO implements PolicyDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return policies;
     }
@@ -66,6 +91,14 @@ public class PolicyDAO implements PolicyDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -82,6 +115,14 @@ public class PolicyDAO implements PolicyDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -92,6 +133,14 @@ public class PolicyDAO implements PolicyDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

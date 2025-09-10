@@ -2,13 +2,22 @@ package com.solvd.project.dao;
 
 import com.solvd.project.dao.interfaces.ClaimDAOI;
 import com.solvd.project.model.Claims;
+import com.solvd.project.utils.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClaimDAO implements ClaimDAOI {
-    private final Connection conn;
+    Connection conn;
+
+    {
+        try {
+            conn = ConnectionPool.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get database connection", e);
+        }
+    }
 
     public ClaimDAO(Connection conn) {
         this.conn = conn;
@@ -28,6 +37,14 @@ public class ClaimDAO implements ClaimDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -46,6 +63,14 @@ public class ClaimDAO implements ClaimDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return claims;
     }
@@ -60,6 +85,14 @@ public class ClaimDAO implements ClaimDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -74,6 +107,14 @@ public class ClaimDAO implements ClaimDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -84,6 +125,14 @@ public class ClaimDAO implements ClaimDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

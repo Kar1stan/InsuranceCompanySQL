@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.project.dao.interfaces.PolicyDAOI">
+  <resultMap id="PolicyResultMap" type="com.solvd.project.model.Policy">
+    <id property="policyId" column="PolicyId"/>
+    <result property="type" column="Type"/>
+    <result property="coverage" column="Coverage"/>
+    <result property="startDate" column="StartDate"/>
+    <result property="endDate" column="EndDate"/>
+    <result property="status" column="Status"/>
+  </resultMap>
+
+  <select id="getById" resultMap="PolicyResultMap" parameterType="int">
+    SELECT * FROM Policies WHERE PolicyId = #{id}
+  </select>
+
+  <select id="getAll" resultMap="PolicyResultMap">
+    SELECT * FROM Policies
+  </select>
+
+  <insert id="insert" parameterType="com.solvd.project.model.Policy">
+    INSERT INTO Policies (Type, Coverage, StartDate, EndDate, Status)
+    VALUES (#{type}, #{coverage}, #{startDate}, #{endDate}, #{status})
+  </insert>
+
+  <update id="update" parameterType="com.solvd.project.model.Policy">
+    UPDATE Policies
+    SET Type = #{type}, Coverage = #{coverage}, StartDate = #{startDate}, EndDate = #{endDate}, Status = #{status}
+    WHERE PolicyId = #{policyId}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM Policies WHERE PolicyId = #{id}
+  </delete>
+</mapper>

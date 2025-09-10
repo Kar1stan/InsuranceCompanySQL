@@ -1,6 +1,7 @@
 package com.solvd.project.service;
 
 import com.solvd.project.dao.interfaces.PaymentsDAOI;
+import com.solvd.project.dao.PaymentDAO;
 import com.solvd.project.model.Payments;
 
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
 public class PaymentsService {
     private final PaymentsDAOI dao;
 
-    public PaymentsService(PaymentsDAOI dao) {
-        this.dao = dao;
+    public PaymentsService() {
+        this.dao = new PaymentDAO(null);
     }
 
     public Payments get(int id) {

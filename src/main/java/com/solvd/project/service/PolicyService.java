@@ -1,5 +1,6 @@
 package com.solvd.project.service;
 
+import com.solvd.project.dao.PolicyDAO;
 import com.solvd.project.dao.interfaces.PolicyDAOI;
 import com.solvd.project.model.Policy;
 
@@ -8,8 +9,8 @@ import java.util.List;
 public class PolicyService {
     private final PolicyDAOI dao;
 
-    public PolicyService(PolicyDAOI dao) {
-        this.dao = dao;
+    public PolicyService() {
+        this.dao = new PolicyDAO(null);
     }
 
     public Policy get(int id) {

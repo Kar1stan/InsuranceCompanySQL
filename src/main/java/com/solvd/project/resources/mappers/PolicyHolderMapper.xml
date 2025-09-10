@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.project.dao.interfaces.PolicyHolderDAOI">
+  <resultMap id="PolicyHolderResultMap" type="com.solvd.project.model.PolicyHolders">
+    <id property="policyHoldersId" column="PolicyHoldersId"/>
+    <result property="name" column="Name"/>
+    <result property="contact" column="Contact"/>
+    <result property="dob" column="DOB"/>
+  </resultMap>
+
+  <select id="getById" resultMap="PolicyHolderResultMap" parameterType="int">
+    SELECT * FROM PolicyHolders WHERE PolicyHoldersId = #{id}
+  </select>
+
+  <select id="getAll" resultMap="PolicyHolderResultMap">
+    SELECT * FROM PolicyHolders
+  </select>
+
+  <insert id="insert" parameterType="com.solvd.project.model.PolicyHolders">
+    INSERT INTO PolicyHolders (Name, Contact, DOB)
+    VALUES (#{name}, #{contact}, #{dob})
+  </insert>
+
+  <update id="update" parameterType="com.solvd.project.model.PolicyHolders">
+    UPDATE PolicyHolders
+    SET Name = #{name}, Contact = #{contact}, DOB = #{dob}
+    WHERE PolicyHoldersId = #{policyHoldersId}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM PolicyHolders WHERE PolicyHoldersId = #{id}
+  </delete>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.project.dao.interfaces.VehicleDAOI">
+  <resultMap id="VehicleResultMap" type="com.solvd.project.model.Vehicles">
+    <id property="vehicleId" column="VehicleId"/>
+    <result property="model" column="Model"/>
+    <result property="registrationYear" column="Registration_Year"/>
+    <result property="vin" column="VIN"/>
+  </resultMap>
+
+  <select id="getById" resultMap="VehicleResultMap" parameterType="int">
+    SELECT * FROM Vehicles WHERE VehicleId = #{id}
+  </select>
+
+  <select id="getAll" resultMap="VehicleResultMap">
+    SELECT * FROM Vehicles
+  </select>
+
+  <insert id="insert" parameterType="com.solvd.project.model.Vehicles">
+    INSERT INTO Vehicles (Model, Registration_Year, VIN)
+    VALUES (#{model}, #{registrationYear}, #{vin})
+  </insert>
+
+  <update id="update" parameterType="com.solvd.project.model.Vehicles">
+    UPDATE Vehicles
+    SET Model = #{model}, Registration_Year = #{registrationYear}, VIN = #{vin}
+    WHERE VehicleId = #{vehicleId}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM Vehicles WHERE VehicleId = #{id}
+  </delete>
+</mapper>

@@ -2,6 +2,7 @@ package com.solvd.project.dao;
 
 import com.solvd.project.dao.interfaces.AccidentDAOI;
 import com.solvd.project.model.Accidents;
+import com.solvd.project.utils.ConnectionPool;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -9,7 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccidentDAO implements AccidentDAOI {
-    private final Connection conn;
+    Connection conn;
+
+    {
+        try {
+            conn = ConnectionPool.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get database connection", e);
+        }
+    }
 
     public AccidentDAO(Connection conn) {
         this.conn = conn;
@@ -30,6 +39,14 @@ public class AccidentDAO implements AccidentDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -49,6 +66,14 @@ public class AccidentDAO implements AccidentDAOI {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return accidents;
     }
@@ -64,6 +89,14 @@ public class AccidentDAO implements AccidentDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -79,6 +112,14 @@ public class AccidentDAO implements AccidentDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -89,6 +130,14 @@ public class AccidentDAO implements AccidentDAOI {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

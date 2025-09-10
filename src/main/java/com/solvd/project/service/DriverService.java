@@ -8,8 +8,8 @@ import java.util.List;
 public class DriverService {
     private final DriverDAOI dao;
 
-    public DriverService(DriverDAOI dao) {
-        this.dao = dao;
+    public DriverService() {
+        this.dao = new com.solvd.project.dao.DriverDAO(null);
     }
 
     public Drivers get(int id) {

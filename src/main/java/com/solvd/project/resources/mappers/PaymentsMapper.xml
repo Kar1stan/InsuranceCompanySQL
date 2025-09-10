@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.project.dao.interfaces.PaymentsDAOI">
+  <resultMap id="PaymentsResultMap" type="com.solvd.project.model.Payments">
+    <id property="paymentId" column="PaymentId"/>
+    <result property="method" column="Method"/>
+    <result property="amount" column="Amount"/>
+    <result property="date" column="Date"/>
+  </resultMap>
+
+  <select id="getById" resultMap="PaymentsResultMap" parameterType="int">
+    SELECT * FROM Payments WHERE PaymentId = #{id}
+  </select>
+
+  <select id="getAll" resultMap="PaymentsResultMap">
+    SELECT * FROM Payments
+  </select>
+
+  <insert id="insert" parameterType="com.solvd.project.model.Payments">
+    INSERT INTO Payments (Method, Amount, Date)
+    VALUES (#{method}, #{amount}, #{date})
+  </insert>
+
+  <update id="update" parameterType="com.solvd.project.model.Payments">
+    UPDATE Payments
+    SET Method = #{method}, Amount = #{amount}, Date = #{date}
+    WHERE PaymentId = #{paymentId}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM Payments WHERE PaymentId = #{id}
+  </delete>
+</mapper>

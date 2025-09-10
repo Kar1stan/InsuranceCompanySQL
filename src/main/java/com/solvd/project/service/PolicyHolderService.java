@@ -1,5 +1,6 @@
 package com.solvd.project.service;
 
+import com.solvd.project.dao.PolicyHolderDAO;
 import com.solvd.project.dao.interfaces.PolicyHolderDAOI;
 import com.solvd.project.model.PolicyHolders;
 
@@ -8,8 +9,8 @@ import java.util.List;
 public class PolicyHolderService {
     private final PolicyHolderDAOI dao;
 
-    public PolicyHolderService(PolicyHolderDAOI dao) {
-        this.dao = dao;
+    public PolicyHolderService() {
+        this.dao = new PolicyHolderDAO(null);
     }
 
     public PolicyHolders get(int id) {

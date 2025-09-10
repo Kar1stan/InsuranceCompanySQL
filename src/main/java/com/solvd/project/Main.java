@@ -7,10 +7,11 @@ import com.solvd.project.model.WitnessJAXB;
 import com.solvd.project.service.DriverService;
 import com.solvd.project.service.InsuranceData;
 import com.solvd.project.service.JsonInsuranceService;
-import com.solvd.project.service.PaymentsService;
-import com.solvd.project.service.PolicyHolderService;
-import com.solvd.project.service.PolicyService;
-import com.solvd.project.service.VehicleService;
+import com.solvd.project.service.mybatisiml.DriverServiceMyBatis;
+import com.solvd.project.service.mybatisiml.PaymentsServiceMyBatis;
+import com.solvd.project.service.mybatisiml.PolicyHolderServiceMyBatis;
+import com.solvd.project.service.mybatisiml.PolicyServiceMyBatis;
+import com.solvd.project.service.mybatisiml.VehicleServiceMyBatis;
 import com.solvd.project.service.XMLImportService;
 import java.io.File;
 
@@ -27,6 +28,7 @@ import com.solvd.project.model.Drivers;
 import com.solvd.project.model.FraudCheck;
 import com.solvd.project.model.InjuriRecord;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,12 +73,12 @@ public class Main {
                         WeatherConditionsDAO weatherDAO = new WeatherConditionsDAO(conn);
                         AccidentDAO accidentDAO = new AccidentDAO(conn);
 
-                        // 3. Initialize 5 Services + StAX Parser Service
-                        PolicyHolderService holderService = new PolicyHolderService(policyHolderDAO);
-                        PolicyService policyService = new PolicyService(policyDAO);
-                        VehicleService vehicleService = new VehicleService(vehicleDAO);
-                        DriverService driverService = new DriverService(driverDAO);
-                        PaymentsService paymentsService = new PaymentsService(paymentsDAO);
+                        // 3. Initialize 5 Services with MyBatis + StAX Parser Service
+                        PolicyHolderServiceMyBatis holderService = new PolicyHolderServiceMyBatis(policyHolderDAO);
+                        PolicyServiceMyBatis policyService = new PolicyServiceMyBatis(policyDAO);
+                        VehicleServiceMyBatis vehicleService = new VehicleServiceMyBatis(vehicleDAO);
+                        DriverServiceMyBatis driverService = new DriverServiceMyBatis(driverDAO);
+                        PaymentsServiceMyBatis paymentsService = new PaymentsServiceMyBatis(paymentsDAO);
                         XMLImportService xmlService = new XMLImportService();
 
                         // 4. Load and process XML data
