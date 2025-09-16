@@ -11,9 +11,9 @@ import java.util.List;
 public class PolicyHolderDAO implements PolicyHolderDAOI {
     Connection conn;
 
-    {
+    public PolicyHolderDAO() {
         try {
-            conn = ConnectionPool.getConnection();
+            this.conn = ConnectionPool.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to get database connection", e);
         }

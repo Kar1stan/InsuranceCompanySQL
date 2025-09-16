@@ -10,7 +10,11 @@ public class PolicyService {
     private final PolicyDAOI dao;
 
     public PolicyService() {
-        this.dao = new PolicyDAO(null);
+        this.dao = new PolicyDAO();
+    }
+
+    public PolicyService(PolicyDAO dao) {
+        this.dao = dao;
     }
 
     public Policy get(int id) {

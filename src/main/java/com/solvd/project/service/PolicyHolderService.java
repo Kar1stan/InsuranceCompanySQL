@@ -10,7 +10,11 @@ public class PolicyHolderService {
     private final PolicyHolderDAOI dao;
 
     public PolicyHolderService() {
-        this.dao = new PolicyHolderDAO(null);
+        this.dao = new PolicyHolderDAO();
+    }
+
+    public PolicyHolderService(PolicyHolderDAO dao) {
+        this.dao = dao;
     }
 
     public PolicyHolders get(int id) {

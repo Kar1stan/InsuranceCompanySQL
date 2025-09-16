@@ -10,7 +10,11 @@ public class PaymentsService {
     private final PaymentsDAOI dao;
 
     public PaymentsService() {
-        this.dao = new PaymentDAO(null);
+        this.dao = new PaymentDAO();
+    }
+
+    public PaymentsService(PaymentDAO dao) {
+        this.dao = dao;
     }
 
     public Payments get(int id) {

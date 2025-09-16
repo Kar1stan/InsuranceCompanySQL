@@ -156,6 +156,27 @@ public class Main {
                         e.printStackTrace();
                 }
 
+                // --- Strategy Pattern---
+                com.solvd.project.model.Claims claim = new com.solvd.project.model.Claims(1, 15000, "pending",
+                                java.time.LocalDate.now());
+                claim.setFlaggedBy("adjuster");
+
+                com.solvd.project.model.strategy.FraudDetectionStrategy riskStrategy = new com.solvd.project.model.strategy.SimpleRiskScoreStrategy();
+                com.solvd.project.model.strategy.FraudDetectionStrategy adjusterStrategy = new com.solvd.project.model.strategy.FlaggedByAdjusterStrategy();
+
+                System.out.println(
+                                "\n[Strategy] Is claim fraudulent (risk score)? " + riskStrategy.isFraudulent(claim));
+                System.out.println("[Strategy] Is claim fraudulent (flagged by adjuster)? "
+                                + adjusterStrategy.isFraudulent(claim));
+
+                // --- Observer Pattern---
+                com.solvd.project.model.observer.ClaimSubject claimSubject = new com.solvd.project.model.observer.ClaimSubject();
+                claimSubject.addObserver(new com.solvd.project.model.observer.EmailNotificationObserver());
+                claimSubject.addObserver(new com.solvd.project.model.observer.LoggingObserver());
+
+                System.out.println("\n[Observer] Notifying observers about claim update...");
+                claimSubject.notifyObservers(claim);
+
         }
 
 }

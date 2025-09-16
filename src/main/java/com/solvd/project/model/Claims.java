@@ -7,12 +7,14 @@ public class Claims {
     private int amount;
     private String status;
     private LocalDate dateFilled;
+    private String flaggedBy;
 
     public Claims(int claimId, int amount, String status, LocalDate dateFilled) {
-        this.claimId = claimId;
-        this.amount = amount;
-        this.status = status;
-        this.dateFilled = dateFilled;
+    this.claimId = claimId;
+    this.amount = amount;
+    this.status = status;
+    this.dateFilled = dateFilled;
+    this.flaggedBy = null;
     }
 
     public int getClaimId() {
@@ -37,6 +39,14 @@ public class Claims {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getFlaggedBy() {
+        return flaggedBy;
+    }
+
+    public void setFlaggedBy(String flaggedBy) {
+        this.flaggedBy = flaggedBy;
     }
 
     public LocalDate getDateFilled() {

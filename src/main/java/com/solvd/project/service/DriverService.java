@@ -9,7 +9,11 @@ public class DriverService {
     private final DriverDAOI dao;
 
     public DriverService() {
-        this.dao = new com.solvd.project.dao.DriverDAO(null);
+        this.dao = new com.solvd.project.dao.DriverDAO();
+    }
+
+    public DriverService(com.solvd.project.dao.DriverDAO dao) {
+        this.dao = dao;
     }
 
     public Drivers get(int id) {

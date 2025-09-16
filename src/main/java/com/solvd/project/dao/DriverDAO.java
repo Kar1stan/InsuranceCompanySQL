@@ -1,4 +1,4 @@
-package com.solvd.project.dao;
+   package com.solvd.project.dao;
 
 import com.solvd.project.dao.interfaces.DriverDAOI;
 import com.solvd.project.model.Drivers;
@@ -11,9 +11,9 @@ import java.util.List;
 public class DriverDAO implements DriverDAOI {
     Connection conn;
 
-    {
+    public DriverDAO() {
         try {
-            conn = ConnectionPool.getConnection();
+            this.conn = ConnectionPool.getConnection();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to get database connection", e);
         }

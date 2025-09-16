@@ -10,7 +10,11 @@ public class VehicleService {
     private final VehicleDAOI dao;
 
     public VehicleService() {
-        this.dao = new VehicleDAO(null);
+        this.dao = new VehicleDAO();
+    }
+
+    public VehicleService(VehicleDAO dao) {
+        this.dao = dao;
     }
 
     public Vehicles get(int id) {
